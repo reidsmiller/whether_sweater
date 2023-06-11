@@ -155,5 +155,17 @@ RSpec.describe 'Weather for city request' do
       expect(forecast[:data][:attributes][:hourly_weather][0]).to_not have_key(:gust_kph)
       expect(forecast[:data][:attributes][:hourly_weather][0]).to_not have_key(:uv)
     end
+
+    it 'sad path, returns error if location is not found', :vcr do
+      get '/api/v0/forecast?forecast?location=blargland,blork'
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error).to be_a(Hash)
+      expect(error[:errors][:detail]).to eq('Illegal argument from request: Insufficient info for location')
+    end
   end
 end
