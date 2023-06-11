@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   def generate_api_key
     loop do
-      self.api_key = SecureRandom.hex(12)
+      self.api_key = SecureRandom.hex(20)
       break unless User.exists?(api_key: api_key)
     end
   end
