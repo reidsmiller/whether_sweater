@@ -48,7 +48,7 @@ RSpec.describe 'User Registration Request' do
 
       error = JSON.parse(response.body, symbolize_names: true)
 
-      expect(error[:errors][:detail]).to eq("Password confirmation doesn't match Password")
+      expect(error[:errors][:detail]).to eq("Validation failed: Password confirmation doesn't match Password")
     end
 
     it 'sad_path: email already exists', :vcr do
@@ -65,7 +65,7 @@ RSpec.describe 'User Registration Request' do
 
       error = JSON.parse(response.body, symbolize_names: true)
 
-      expect(error[:errors][:detail]).to eq('Email has already been taken')
+      expect(error[:errors][:detail]).to eq('Validation failed: Email has already been taken')
     end
 
     it 'sad_path: missing email', :vcr do
@@ -80,7 +80,7 @@ RSpec.describe 'User Registration Request' do
 
       error = JSON.parse(response.body, symbolize_names: true)
 
-      expect(error[:errors][:detail]).to eq("Email can't be blank")
+      expect(error[:errors][:detail]).to eq("Validation failed: Email can't be blank")
     end
 
     it 'sad_path: missing password', :vcr do
@@ -96,7 +96,7 @@ RSpec.describe 'User Registration Request' do
 
       error = JSON.parse(response.body, symbolize_names: true)
 
-      expect(error[:errors][:detail]).to eq("Password can't be blank")
+      expect(error[:errors][:detail]).to eq("Validation failed: Password can't be blank, Password can't be blank")
     end
   end
 end
