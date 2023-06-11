@@ -6,7 +6,7 @@ RSpec.describe 'User Login Request' do
       User.create!(email: 'whatever@example.com', password: 'password123', password_confirmation: 'password123')
       post '/api/v0/sessions', headers: { 'CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json' },
                                params: JSON.generate({
-                                                       "email:": 'whatever@example.com',
+                                                       "email": 'whatever@example.com',
                                                        "password": 'password123'
                                                      })
 
