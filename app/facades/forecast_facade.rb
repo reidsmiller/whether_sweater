@@ -1,9 +1,13 @@
 class ForecastFacade
+  class GeolocationError < StandardError; end
+
   def initialize(location)
     @location = location
   end
 
   def geolocation
+    raise GeolocationError, geolocation_data[:info][:messages].first if geolocation_data[:info][:statuscode] == 400
+
     Geolocation.new(geolocation_data)
   end
 
