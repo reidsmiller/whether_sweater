@@ -26,6 +26,6 @@ class ForecastFacade
   end
 
   def weather_data
-    @_weather_data ||= weather_service.weather(geolocation.lat, geolocation.lon)
+    @_weather_data ||= weather_service.weather(geolocation.lat, geolocation.lng)
   end
 end
