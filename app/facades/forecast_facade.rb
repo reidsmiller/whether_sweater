@@ -6,9 +6,9 @@ class ForecastFacade
   end
 
   def geolocation
-    raise GeolocationError, geolocation_data[:info][:messages].first if geolocation_data[:info][:statuscode] == 400
+    raise GeolocationError, 'Invalid location' if geolocation_data[:results][0][:locations].count != 1
 
-    @_geolocation ||= Geolocation.new(geolocation_data)
+    Geolocation.new(geolocation_data)
   end
 
   def forecast

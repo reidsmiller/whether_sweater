@@ -55,5 +55,18 @@ RSpec.describe 'Book Location Search Request' do
       expect(books[:data][:attributes][:books][0][:publisher]).to be_a(Array)
       expect(books[:data][:attributes][:books][0][:publisher][0]).to be_a(String)
     end
+
+    describe 'sad path' do
+      it 'location is not valid', :vcr do
+        get '/api/v0/book-search?location=blargland,blork&quantity=5', headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' }
+
+        expect(response).to_not be_successful
+        expect(response.status).to eq(400)
+
+        error = JSON.parse(response.body, symbolize_names: true)
+
+        expect(error[:errors][:detail]).to eq('Invalid location')
+      end
+    end
   end
 end
