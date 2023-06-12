@@ -8,7 +8,7 @@ class BookFacade
   end
 
   def books
-    Book.new(book_data, @forecast)
+    Book.new(book_data, @location, @forecast)
   end
 
   private
