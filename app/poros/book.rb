@@ -1,19 +1,18 @@
 class Book
-  attr_reader :id, :type, :destination, :forecast, :total_books_found, :books
+  attr_reader :id, :destination, :forecast, :total_books_found, :books
 
   def initialize(data, location, forecast)
     @id = nil
-    @type = 'books'
     @destination = location
     @forecast = format_forecast(forecast)
     @total_books_found = data[:num_found]
     @books = format_books(data[:docs])
   end
 
-  def format_forecast(data)
+  def format_forecast(forecast)
     {
-      summary: data[:current_weather][:conditions],
-      temperature: data[:current_weather][:temperature]
+      summary: forecast.current_weather[:conditions],
+      temperature: "#{forecast.current_weather[:temperature].to_i} F"
     }
   end
 

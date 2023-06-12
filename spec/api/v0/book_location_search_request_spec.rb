@@ -15,10 +15,10 @@ RSpec.describe 'Book Location Search Request' do
       expect(books[:data]).to be_a(Hash)
 
       expect(books[:data]).to have_key(:id)
-      expect(books[:data][:id]).to be_a(String)
+      expect(books[:data][:id]).to eq(nil)
 
       expect(books[:data]).to have_key(:type)
-      expect(books[:data][:type]).to eq('books')
+      expect(books[:data][:type]).to eq('book')
 
       expect(books[:data]).to have_key(:attributes)
       expect(books[:data][:attributes]).to be_a(Hash)

@@ -6,7 +6,7 @@ RSpec.describe BookFacade do
       @facade = BookFacade.new({
         location: 'denver,co',
         quantity: 5
-      })
+      }, ForecastFacade.new('denver,co').forecast)
     end
 
     it 'returns a book object', :vcr do
