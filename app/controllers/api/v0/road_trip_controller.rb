@@ -3,7 +3,8 @@ class Api::V0::RoadTripController < ApplicationController
 
   def create
     User.find_by!(api_key: params[:api_key])
-    road_trip = RoadTripFacade.create_road_trip(params[:origin], params[:destination])
+    forecast = ForecastFacade.forecast(params[:destination])
+    road_trip = RoadTripFacade.create_road_trip(params, forecast)
     render json: RoadTripSerializer.new(road_trip)
   end
 
