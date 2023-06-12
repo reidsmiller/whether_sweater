@@ -157,7 +157,7 @@ RSpec.describe 'Weather for city request' do
     end
 
     it 'sad path, returns error if location is not found', :vcr do
-      get '/api/v0/forecast?forecast?location=blargland,blork'
+      get '/api/v0/forecast?location=blargland,blork'
 
       expect(response).to_not be_successful
       expect(response.status).to eq(400)
@@ -165,7 +165,7 @@ RSpec.describe 'Weather for city request' do
       error = JSON.parse(response.body, symbolize_names: true)
 
       expect(error).to be_a(Hash)
-      expect(error[:errors][:detail]).to eq('Illegal argument from request: Insufficient info for location')
+      expect(error[:errors][:detail]).to eq('Invalid location')
     end
   end
 end
