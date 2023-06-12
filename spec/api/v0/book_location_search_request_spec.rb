@@ -50,7 +50,7 @@ RSpec.describe 'Book Location Search Request' do
 
       expect(books[:data][:attributes][:books][0]).to have_key(:title)
       expect(books[:data][:attributes][:books][0][:title]).to be_a(String)
-      
+
       expect(books[:data][:attributes][:books][0]).to have_key(:publisher)
       expect(books[:data][:attributes][:books][0][:publisher]).to be_a(Array)
       expect(books[:data][:attributes][:books][0][:publisher][0]).to be_a(String)
