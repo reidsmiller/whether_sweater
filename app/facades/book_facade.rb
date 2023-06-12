@@ -1,6 +1,4 @@
 class BookFacade
-  class GeolocationError < StandardError; end
-
   def initialize(params, forecast)
     @location = params[:location]
     @quantity = params[:quantity]

@@ -107,7 +107,7 @@ RSpec.describe 'Road Trip Request' do
 
         error = JSON.parse(response.body, symbolize_names: true)
 
-        expect(error[:errors][:detail]).to eq('Validation Error: Invalid API key')
+        expect(error[:errors]).to eq('Unauthorized')
       end
 
       it 'missing api key', :vcr do
@@ -122,7 +122,7 @@ RSpec.describe 'Road Trip Request' do
 
         error = JSON.parse(response.body, symbolize_names: true)
 
-        expect(error[:errors][:detail]).to eq('Validation Error: Invalid API key')
+        expect(error[:errors]).to eq('Unauthorized')
       end
 
       it 'invalid origin', :vcr do
