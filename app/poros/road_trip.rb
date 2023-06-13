@@ -40,8 +40,11 @@ class RoadTrip
 
   def calculate_datetime(time, forecast)
     arrival_time = DateTime.parse(forecast[:location][:localtime]) + time.seconds
-    rounded_time = arrival_time.change(min: arrival_time.min >= 30 ? 60 : 0)
-    rounded_time = rounded_time.change(hour: rounded_time.hour + 1) if rounded_time.min == 60
+    rounded_time = if arrival_time.min >= 30
+                     arrival_time.change(min: 0, hour: arrival_time.hour + 1)
+                   else
+                     arrival_time.change(min: 0)
+                   end
     rounded_time.strftime('%Y-%m-%d %H:%M')
   end
 end
