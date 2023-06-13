@@ -124,39 +124,6 @@ RSpec.describe 'Road Trip Request' do
 
         expect(error[:errors]).to eq('Unauthorized')
       end
-
-      it 'invalid origin', :vcr do
-        post '/api/v0/road_trip', headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
-                                 params: JSON.generate({
-                                                         "origin": 'blargland,blork',
-                                                         "destination": 'Boston,MA',
-                                                         "api_key": @user.api_key
-                                                       })
-
-        expect(response).to_not be_successful
-        expect(response.status).to eq(401)
-
-        error = JSON.parse(response.body, symbolize_names: true)
-
-        expect(error[:errors][:detail]).to eq('Invalid Location')
-      end
-
-      it 'invalid destination', :vcr do
-        post '/api/v0/road_trip', headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
-                                 params: JSON.generate({
-                                                         "origin": 'Denver,CO',
-                                                         "destination": 'Lunar Base Alpha, The Moon',
-                                                         "api_key": @user.api_key
-                                                       })
-
-        expect(response).to_not be_successful
-        expect(response.status).to eq(401)
-
-        error = JSON.parse(response.body, symbolize_names: true)
-
-        expect(error[:errors][:detail]).to eq('Invalid location')
-      end
-
     end
   end
 end

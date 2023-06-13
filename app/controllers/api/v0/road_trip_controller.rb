@@ -1,5 +1,5 @@
 class Api::V0::RoadTripController < ApplicationController
-  rescue_from ActiveRecord::RecordInvalid, with: :render_unauthorized_response
+  rescue_from ActiveRecord::RecordNotFound, with: :render_unauthorized_response
 
   def create
     User.find_by!(api_key: params[:api_key])
