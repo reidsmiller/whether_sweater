@@ -6,7 +6,7 @@ RSpec.describe RoadTripFacade do
       @facade = RoadTripFacade.new({
         origin: 'denver,co',
         destination: 'pueblo,co'
-      }, ForecastFacade.new('pueblo,co').forecast)
+      }, ForecastFacade.new('pueblo,co').weather_data)
     end
 
     it 'returns a road trip object', :vcr do

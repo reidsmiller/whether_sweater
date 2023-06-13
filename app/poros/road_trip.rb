@@ -2,8 +2,8 @@ class RoadTrip
   attr_reader :id, :type, :start_city, :end_city, :travel_time, :weather_at_eta
 
   def initialize(data, forecast, origin, destination)
-    @id = nil
-    @type = 'roadtrip'
+    @id = 'null'
+    @type = 'road_trip'
     @start_city = origin
     @end_city = destination
     @travel_time = format_travel_time(data)
@@ -11,7 +11,7 @@ class RoadTrip
   end
 
   def format_travel_time(data)
-    if data[:info][:messages].include?('We are unable to route with the given locations.')
+    if data[:info][:statuscode] != 0
       'impossible route'
     else
       data[:route][:formattedTime]

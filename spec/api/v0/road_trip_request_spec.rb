@@ -24,10 +24,10 @@ RSpec.describe 'Road Trip Request' do
       expect(road_trip[:data]).to be_a(Hash)
 
       expect(road_trip[:data]).to have_key(:id)
-      expect(road_trip[:data][:id]).to be(nil)
+      expect(road_trip[:data][:id]).to eq('null')
 
       expect(road_trip[:data]).to have_key(:type)
-      expect(road_trip[:data][:type]).to be_a(String)
+      expect(road_trip[:data][:type]).to eq('road_trip')
 
       expect(road_trip[:data]).to have_key(:attributes)
       expect(road_trip[:data][:attributes]).to be_a(Hash)
@@ -57,7 +57,7 @@ RSpec.describe 'Road Trip Request' do
     it 'impossible route', :vcr do
       post '/api/v0/road_trip', headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
                                params: JSON.generate({
-                                                       "origin:": 'Denver,CO',
+                                                       "origin": 'Denver,CO',
                                                        "destination": 'London,UK',
                                                        "api_key": @user.api_key
                                                      })
@@ -94,10 +94,10 @@ RSpec.describe 'Road Trip Request' do
     end
 
     describe 'sad path' do
-      xit 'invalid api key', :vcr do
+      it 'invalid api key', :vcr do
         post '/api/v0/road_trip', headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
                                  params: JSON.generate({
-                                                         "origin:": 'Denver,CO',
+                                                         "origin": 'Denver,CO',
                                                          "destination": 'Boston,MA',
                                                          "api_key": '1234566sdksjd;tlksaasdf'
                                                        })
@@ -110,10 +110,10 @@ RSpec.describe 'Road Trip Request' do
         expect(error[:errors]).to eq('Unauthorized')
       end
 
-      xit 'missing api key', :vcr do
+      it 'missing api key', :vcr do
         post '/api/v0/road_trip', headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
                                  params: JSON.generate({
-                                                         "origin:": 'Denver,CO',
+                                                         "origin": 'Denver,CO',
                                                          "destination": 'Boston,MA'
                                                        })
 
@@ -125,10 +125,10 @@ RSpec.describe 'Road Trip Request' do
         expect(error[:errors]).to eq('Unauthorized')
       end
 
-      xit 'invalid origin', :vcr do
+      it 'invalid origin', :vcr do
         post '/api/v0/road_trip', headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
                                  params: JSON.generate({
-                                                         "origin:": 'blargland,blork',
+                                                         "origin": 'blargland,blork',
                                                          "destination": 'Boston,MA',
                                                          "api_key": @user.api_key
                                                        })
@@ -138,13 +138,13 @@ RSpec.describe 'Road Trip Request' do
 
         error = JSON.parse(response.body, symbolize_names: true)
 
-        expect(error[:errors][:detail]).to eq('Invalid location')
+        expect(error[:errors][:detail]).to eq('Invalid Location')
       end
 
-      xit 'invalid destination', :vcr do
+      it 'invalid destination', :vcr do
         post '/api/v0/road_trip', headers: { 'Content-Type' => 'application/json', 'Accept' => 'application/json' },
                                  params: JSON.generate({
-                                                         "origin:": 'Denver,CO',
+                                                         "origin": 'Denver,CO',
                                                          "destination": 'Lunar Base Alpha, The Moon',
                                                          "api_key": @user.api_key
                                                        })
