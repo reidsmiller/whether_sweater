@@ -1,12 +1,12 @@
 class RoadTripFacade
-  def initialize(params, forecast)
+  def initialize(params, forecast_data)
     @origin = params[:origin]
     @destination = params[:destination]
-    @forecast = forecast
+    @forecast_data = forecast_data
   end
 
   def road_trip
-    RoadTrip.new(road_trip_data, forecast)
+    RoadTrip.new(road_trip_data, @forecast_data, @origin, @destination)
   end
 
   private
