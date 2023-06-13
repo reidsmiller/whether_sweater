@@ -114,6 +114,7 @@ RSpec.describe RoadTrip do
   it 'can caculate arrival time' do
     road_trip = RoadTrip.new(@data, @forecast2, @origin, @destination)
 
+    expect(road_trip.calculate_datetime(@data[:route][:time], @forecast1)).to eq('2023-06-16 00:00')
     expect(road_trip.calculate_datetime(@data[:route][:time], @forecast2)).to eq('2023-06-15 23:00')
   end
 end
