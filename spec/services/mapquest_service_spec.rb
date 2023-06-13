@@ -22,6 +22,17 @@ RSpec.describe MapquestService do
         expect(search[:results].first[:locations].first[:latLng]).to have_key(:lng)
         expect(search[:results].first[:locations].first[:latLng][:lng]).to be_a(Float)
       end
+
+      it 'returns direction data', :vcr do
+        search = MapquestService.new.road_trip('denver,co', 'pueblo,co')
+
+        expect(search).to be_a(Hash)
+        expect(search).to have_key(:route)
+        expect(search[:route]).to be_a(Hash)
+
+        expect(search[:route]).to have_key(:formattedTime)
+        expect(search[:route][:formattedTime]).to be_a(String)
+      end
     end
   end
 end

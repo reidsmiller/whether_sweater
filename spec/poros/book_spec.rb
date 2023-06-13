@@ -20,14 +20,14 @@ RSpec.describe Book do
     @forecast = ForecastFacade.new(@location).forecast
   end
 
-  it 'exists' do
+  it 'exists', :vcr do
     book = Book.new(@data, @location, @forecast)
 
     expect(book).to be_a(Book)
     expect(book.destination).to eq(@location)
-    expect(book.isbn).to be_a(Array)
-    expect(book.isbn[0]).to eq(@data[:docs][0][:isbn][0])
-    expect(book.title).to eq(@data[:docs][0][:title])
-    expect(book.publisher).to eq(@data[:docs][0][:publisher][0])
+    expect(book.books).to be_a(Array)
+    expect(book.books[0][:isbn][0]).to eq(@data[:docs][0][:isbn][0])
+    expect(book.books[0][:title]).to eq(@data[:docs][0][:title])
+    expect(book.books[0][:publisher][0]).to eq(@data[:docs][0][:publisher][0])
   end
 end

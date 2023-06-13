@@ -15,6 +15,10 @@ class ForecastFacade
     Forecast.new(weather_data)
   end
 
+  def weather_data
+    @_weather_data ||= weather_service.weather(geolocation.lat, geolocation.lng)
+  end
+
   private
 
   def geolocation_service
@@ -27,9 +31,5 @@ class ForecastFacade
 
   def geolocation_data
     @_geolocation_data ||= geolocation_service.geocode(@location)
-  end
-
-  def weather_data
-    @_weather_data ||= weather_service.weather(geolocation.lat, geolocation.lng)
   end
 end
